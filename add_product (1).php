@@ -12,6 +12,7 @@ $sql="SELECT * FROM product WHERE id=$id";
 $result=mysqli_query($con,$sql);
 
 if(mysqli_num_rows($result)>0){
+    $success=1;
     $row=mysqli_fetch_assoc($result);
     echo $row['id']."<br>";
     echo $row['name']."<br>";
@@ -27,6 +28,28 @@ if(mysqli_num_rows($result)>0){
     array_push($_SESSION["cart"],$item);
     print_r($_SESSION["cart"]);
 }
-
+else
+{
+    $success=0;
+}
 mysqli_close($con);
+?>
+<?php
+  if($success!=0){
+?>
+<script>
+    window.alert("นำสินค้าใส่ตระกร้าเรียบร้อยแล้ว");
+    window.location.replace("show_product.php");
+</script>
+<?php
+  }
+  else
+  {
+?>
+<script>
+    window.alert("เกิดข้อผิดพลาด!!!");
+    window.location.replace("show_product.php");
+</script>
+<?php
+  }
 ?>
